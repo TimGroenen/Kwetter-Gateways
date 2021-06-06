@@ -1,0 +1,19 @@
+image: maven:3-jdk-11
+
+stages:
+    - build
+    - test
+
+#Build stage
+buildUserGateway:
+    stage: build
+    script:
+        - cd userGateway
+        - mvn package -Dmaven.test.skip=true
+
+#Test stage
+testUserGateway:
+    stage: test
+    script:
+        - cd userGateway
+        - mvn test
