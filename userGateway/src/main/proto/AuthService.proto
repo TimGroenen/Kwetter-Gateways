@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package com.kwetter.authService.proto;
+
+service AuthService {
+    rpc Register(RegisterRequest) returns (RegisterResponse);
+    rpc Login(LoginRequest) returns (LoginResponse);
+    rpc ValidateToken(ValidationRequest) returns (ValidationResponse);
+}
+
+message Account {
+    int64 id = 1;
+    string email = 2;
+    string password = 3;
+    bool is_admin = 4;
+}
+
+//Register
+message RegisterRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message RegisterResponse {
+    bool status = 1;
+    string message = 2;
+    Account account = 3;
+}
+
+//Sign in
+message LoginRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message LoginResponse {
+    bool status = 1;
+    string message = 2;
+}
+
+//Validate token
+message ValidationRequest {
+    string token = 1;
+}
+
+message ValidationResponse {
+    bool status = 1;
+    string message = 2;
+}
