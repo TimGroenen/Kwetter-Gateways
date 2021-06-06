@@ -51,7 +51,7 @@ public class AuthController {
 
         if(!response.getStatus()) {
             logger.info("User is not logged in");
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         logger.info("Login successful");
