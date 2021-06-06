@@ -7,6 +7,7 @@ import com.kwetter.userGateway.grpcClient.AuthClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody AuthDTO authDTO) {
+    public ResponseEntity login(@RequestBody AuthDTO authDTO) {
         if(authDTO.getEmail() == null || authDTO.getPassword() == null) {
             logger.info("Empty login request");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -54,7 +55,10 @@ public class AuthController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Authorization", "Bearer " + response.getMessage());
+
         logger.info("Login successful");
-        return new ResponseEntity<>("Bearer " + response.getMessage(), HttpStatus.OK);
+        return ResponseEntity.ok().headers(responseHeaders).build();
     }
 }
