@@ -25,9 +25,9 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AccountDTO> registerAccount(@RequestBody AuthDTO authDTO) {
-        if(authDTO.getEmail() == null || authDTO.getPassword() == null) {
+        if(authDTO.getEmail().equals("") || authDTO.getPassword().equals("")) {
             logger.info("Empty register request");
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
         }
 
         RegisterResponse response = authService.register(authDTO.getEmail(), authDTO.getPassword());
@@ -43,9 +43,9 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthDTO authDTO) {
-        if(authDTO.getEmail() == null || authDTO.getPassword() == null) {
+        if(authDTO.getEmail().equals("") || authDTO.getPassword().equals("")) {
             logger.info("Empty login request");
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
         }
 
         LoginResponse response = authService.login(authDTO.getEmail(), authDTO.getPassword());
