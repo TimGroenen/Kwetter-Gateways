@@ -47,11 +47,15 @@ public class AuthControllerTests {
 
     @Test
     public void AuthControllerRegisterEmptyInputTest() {
+        String email = "";
+        String password = "";
         AuthDTO dto = new AuthDTO();
+        dto.setEmail(email);
+        dto.setPassword(password);
 
         ResponseEntity<AccountDTO> response = authController.registerAccount(dto);
 
-        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        assertEquals(HttpStatus.UNPROCESSABLE_ENTITY, response.getStatusCode());
     }
 
     @Test
@@ -89,11 +93,15 @@ public class AuthControllerTests {
 
     @Test
     public void AuthControllerLoginEmptyInputTest() {
+        String email = "";
+        String password = "";
         AuthDTO dto = new AuthDTO();
+        dto.setEmail(email);
+        dto.setPassword(password);
 
         ResponseEntity<String> response = authController.login(dto);
 
-        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        assertEquals(HttpStatus.UNPROCESSABLE_ENTITY, response.getStatusCode());
     }
 
     @Test
