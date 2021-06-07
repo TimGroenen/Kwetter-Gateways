@@ -24,7 +24,7 @@ imageUserGateway:
     stage: image
     image: docker:18-dind
     script: 
-        - cd authService
+        - cd userGateway
         - docker build . -t timgroenen/kwetterusergateway
         - docker login --username $dockerUsername --password $dockerPassword
         - docker push timgroenen/kwetterusergateway
