@@ -3,6 +3,7 @@ image: maven:3-jdk-11
 stages:
     - build
     - test
+    - image
 
 #Build stage
 buildUserGateway:
@@ -17,3 +18,13 @@ testUserGateway:
     script:
         - cd userGateway
         - mvn test
+
+#Build and push docker image
+imageUserGateway:
+    stage: image
+    image: docker:18-dind
+    script: 
+        - cd authService
+        - docker build . -t timgroenen/kwetterusergateway
+        - docker login --username $dockerUsername --password $dockerPassword
+        - docker push timgroenen/kwetterusergateway
