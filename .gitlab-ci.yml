@@ -5,6 +5,16 @@ stages:
     - test
     - image
 
+services:
+   - name: docker:18-dind
+     alias: thedockerhost
+
+variables:
+    DOCKER_HOST: tcp://thedockerhost:2375/
+    # Use the overlayfs driver for improved performance:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+
 #Build stage
 buildUserGateway:
     stage: build
@@ -24,7 +34,7 @@ imageUserGateway:
     stage: image
     image: docker:18-dind
     script: 
-        - cd authService
+        - cd userGateway
         - docker build . -t timgroenen/kwetterusergateway
         - docker login --username $dockerUsername --password $dockerPassword
         - docker push timgroenen/kwetterusergateway
