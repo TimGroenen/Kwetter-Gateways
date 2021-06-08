@@ -40,4 +40,14 @@ public class AuthClientService {
         channel.shutdown();
         return response;
     }
+
+    public RegisterResponse getAccountByEmail(String email) {
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 5000).usePlaintext().build();
+        AuthServiceGrpc.AuthServiceBlockingStub stub = AuthServiceGrpc.newBlockingStub(channel);
+
+        RegisterResponse response = stub.getAccountByEmail(EmailRequest.newBuilder().setEmail(email).build());
+
+        channel.shutdown();
+        return response;
+    }
 }

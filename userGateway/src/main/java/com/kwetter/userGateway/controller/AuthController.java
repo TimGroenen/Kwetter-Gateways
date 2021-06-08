@@ -1,9 +1,11 @@
 package com.kwetter.userGateway.controller;
 
 import com.kwetter.authService.proto.AuthServiceOuterClass.*;
+import com.kwetter.profileService.proto.ProfileServiceOuterClass.*;
 import com.kwetter.userGateway.dto.AccountDTO;
 import com.kwetter.userGateway.dto.AuthDTO;
 import com.kwetter.userGateway.grpcClient.AuthClientService;
+import com.kwetter.userGateway.grpcClient.ProfileClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +20,11 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     Logger logger = LoggerFactory.getLogger(AuthController.class);
     private AuthClientService authService;
+    private ProfileClientService profileService;
 
-    public AuthController(@Autowired AuthClientService authService) {
+    public AuthController(@Autowired AuthClientService authService, @Autowired ProfileClientService profileService) {
         this.authService = authService;
+        this.profileService = profileService;
     }
 
     @PostMapping("/register")
@@ -36,6 +40,9 @@ public class AuthController {
             logger.info("User is not registered");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
+        //User is registered -> create profile in profileService
+        ProfileResponse profileResponse = profileService.createProfile(response.getAccount().getId(), authDTO.getName());
 
         logger.info("New account registered, email: " + response.getAccount().getEmail());
         return new ResponseEntity<>(new AccountDTO(response.getAccount()), HttpStatus.OK);

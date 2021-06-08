@@ -6,6 +6,7 @@ service AuthService {
     rpc Register(RegisterRequest) returns (RegisterResponse);
     rpc Login(LoginRequest) returns (LoginResponse);
     rpc ValidateToken(ValidationRequest) returns (ValidationResponse);
+    rpc GetAccountByEmail(EmailRequest) returns (RegisterResponse);
 }
 
 message Account {
@@ -46,4 +47,9 @@ message ValidationRequest {
 message ValidationResponse {
     bool status = 1;
     string message = 2;
+}
+
+//Email request
+message EmailRequest {
+    string email = 1;
 }

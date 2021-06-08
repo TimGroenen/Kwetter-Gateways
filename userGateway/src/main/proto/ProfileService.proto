@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package com.kwetter.profileService.proto;
+
+service ProfileService {
+    //Create empty profile with supplied name and accountId
+    rpc CreateNewProfile(NewProfileRequest) returns (ProfileResponse);
+    //Update profile information
+    rpc UpdateProfileInfo(UpdateProfileInfoRequest) returns (ProfileResponse);
+    //Get profile by userId
+    rpc GetProfileByUserId(GetProfileByUserIdRequest) returns (ProfileResponse);
+    //Follow user
+    rpc FollowUser(FollowUserRequest) returns (SimpleResponse);
+    //Unfollow user
+    rpc UnfollowUser(FollowUserRequest) returns (SimpleResponse);
+    //Get followed
+    rpc GetFollowed(GetByProfileIdRequest) returns (ProfilesResponse);
+    //Get followers
+    rpc GetFollowers(GetByProfileIdRequest) returns (ProfilesResponse);
+}
+
+//TODO: add image support for profile picture
+message Profile {
+    int64 id = 1;
+    int64 account_id = 2;
+    string name = 3;
+    string bio = 4;
+    string location = 5;
+    string website = 6;
+}
+
+message SimpleResponse {
+    bool status = 1;
+    string message = 2;
+}
+
+message ProfilesResponse {
+    repeated Profile profiles = 1;
+}
+
+//New profile
+message NewProfileRequest {
+    int64 account_id = 1;
+    string name = 2;
+}
+
+message ProfileResponse {
+    bool status = 1;
+    string message = 2;
+    Profile profile = 3;
+}
+
+//Update profile info
+message UpdateProfileInfoRequest {
+    Profile profile = 1;
+}
+
+//Get profile by userId
+message GetProfileByUserIdRequest {
+    int64 user_id = 1;
+}
+
+//Follow user
+message FollowUserRequest {
+    int64 user_following_id = 1;
+    int64 user_followed_id = 2;
+}
+
+//Get followers/followed
+message GetByProfileIdRequest {
+    int64 profile_id = 1;
+}

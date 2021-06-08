@@ -54,6 +54,15 @@ public class AuthServiceGrpc {
               "com.kwetter.authService.proto.AuthService", "ValidateToken"),
           io.grpc.protobuf.ProtoUtils.marshaller(com.kwetter.authService.proto.AuthServiceOuterClass.ValidationRequest.getDefaultInstance()),
           io.grpc.protobuf.ProtoUtils.marshaller(com.kwetter.authService.proto.AuthServiceOuterClass.ValidationResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static final io.grpc.MethodDescriptor<com.kwetter.authService.proto.AuthServiceOuterClass.EmailRequest,
+      com.kwetter.authService.proto.AuthServiceOuterClass.RegisterResponse> METHOD_GET_ACCOUNT_BY_EMAIL =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "com.kwetter.authService.proto.AuthService", "GetAccountByEmail"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.kwetter.authService.proto.AuthServiceOuterClass.EmailRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.kwetter.authService.proto.AuthServiceOuterClass.RegisterResponse.getDefaultInstance()));
 
   /**
    * Creates a new async stub that supports all call types for the service
@@ -103,6 +112,13 @@ public class AuthServiceGrpc {
       asyncUnimplementedUnaryCall(METHOD_VALIDATE_TOKEN, responseObserver);
     }
 
+    /**
+     */
+    public void getAccountByEmail(com.kwetter.authService.proto.AuthServiceOuterClass.EmailRequest request,
+        io.grpc.stub.StreamObserver<com.kwetter.authService.proto.AuthServiceOuterClass.RegisterResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(METHOD_GET_ACCOUNT_BY_EMAIL, responseObserver);
+    }
+
     @java.lang.Override public io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -126,6 +142,13 @@ public class AuthServiceGrpc {
                 com.kwetter.authService.proto.AuthServiceOuterClass.ValidationRequest,
                 com.kwetter.authService.proto.AuthServiceOuterClass.ValidationResponse>(
                   this, METHODID_VALIDATE_TOKEN)))
+          .addMethod(
+            METHOD_GET_ACCOUNT_BY_EMAIL,
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.kwetter.authService.proto.AuthServiceOuterClass.EmailRequest,
+                com.kwetter.authService.proto.AuthServiceOuterClass.RegisterResponse>(
+                  this, METHODID_GET_ACCOUNT_BY_EMAIL)))
           .build();
     }
   }
@@ -171,6 +194,14 @@ public class AuthServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(METHOD_VALIDATE_TOKEN, getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void getAccountByEmail(com.kwetter.authService.proto.AuthServiceOuterClass.EmailRequest request,
+        io.grpc.stub.StreamObserver<com.kwetter.authService.proto.AuthServiceOuterClass.RegisterResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_GET_ACCOUNT_BY_EMAIL, getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -210,6 +241,13 @@ public class AuthServiceGrpc {
     public com.kwetter.authService.proto.AuthServiceOuterClass.ValidationResponse validateToken(com.kwetter.authService.proto.AuthServiceOuterClass.ValidationRequest request) {
       return blockingUnaryCall(
           getChannel(), METHOD_VALIDATE_TOKEN, getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.kwetter.authService.proto.AuthServiceOuterClass.RegisterResponse getAccountByEmail(com.kwetter.authService.proto.AuthServiceOuterClass.EmailRequest request) {
+      return blockingUnaryCall(
+          getChannel(), METHOD_GET_ACCOUNT_BY_EMAIL, getCallOptions(), request);
     }
   }
 
@@ -254,11 +292,20 @@ public class AuthServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(METHOD_VALIDATE_TOKEN, getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.kwetter.authService.proto.AuthServiceOuterClass.RegisterResponse> getAccountByEmail(
+        com.kwetter.authService.proto.AuthServiceOuterClass.EmailRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_GET_ACCOUNT_BY_EMAIL, getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_REGISTER = 0;
   private static final int METHODID_LOGIN = 1;
   private static final int METHODID_VALIDATE_TOKEN = 2;
+  private static final int METHODID_GET_ACCOUNT_BY_EMAIL = 3;
 
   private static class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -289,6 +336,10 @@ public class AuthServiceGrpc {
           serviceImpl.validateToken((com.kwetter.authService.proto.AuthServiceOuterClass.ValidationRequest) request,
               (io.grpc.stub.StreamObserver<com.kwetter.authService.proto.AuthServiceOuterClass.ValidationResponse>) responseObserver);
           break;
+        case METHODID_GET_ACCOUNT_BY_EMAIL:
+          serviceImpl.getAccountByEmail((com.kwetter.authService.proto.AuthServiceOuterClass.EmailRequest) request,
+              (io.grpc.stub.StreamObserver<com.kwetter.authService.proto.AuthServiceOuterClass.RegisterResponse>) responseObserver);
+          break;
         default:
           throw new AssertionError();
       }
@@ -309,7 +360,8 @@ public class AuthServiceGrpc {
     return new io.grpc.ServiceDescriptor(SERVICE_NAME,
         METHOD_REGISTER,
         METHOD_LOGIN,
-        METHOD_VALIDATE_TOKEN);
+        METHOD_VALIDATE_TOKEN,
+        METHOD_GET_ACCOUNT_BY_EMAIL);
   }
 
 }
