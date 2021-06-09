@@ -67,6 +67,11 @@ public final class ProfileServiceOuterClass {
      */
     com.google.protobuf.ByteString
         getWebsiteBytes();
+
+    /**
+     * <code>optional bytes image = 7;</code>
+     */
+    com.google.protobuf.ByteString getImage();
   }
   /**
    * <pre>
@@ -90,6 +95,7 @@ public final class ProfileServiceOuterClass {
       bio_ = "";
       location_ = "";
       website_ = "";
+      image_ = com.google.protobuf.ByteString.EMPTY;
     }
 
     @java.lang.Override
@@ -149,6 +155,11 @@ public final class ProfileServiceOuterClass {
               java.lang.String s = input.readStringRequireUtf8();
 
               website_ = s;
+              break;
+            }
+            case 58: {
+
+              image_ = input.readBytes();
               break;
             }
           }
@@ -328,6 +339,15 @@ public final class ProfileServiceOuterClass {
       }
     }
 
+    public static final int IMAGE_FIELD_NUMBER = 7;
+    private com.google.protobuf.ByteString image_;
+    /**
+     * <code>optional bytes image = 7;</code>
+     */
+    public com.google.protobuf.ByteString getImage() {
+      return image_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -358,6 +378,9 @@ public final class ProfileServiceOuterClass {
       if (!getWebsiteBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 6, website_);
       }
+      if (!image_.isEmpty()) {
+        output.writeBytes(7, image_);
+      }
     }
 
     public int getSerializedSize() {
@@ -384,6 +407,10 @@ public final class ProfileServiceOuterClass {
       }
       if (!getWebsiteBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, website_);
+      }
+      if (!image_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(7, image_);
       }
       memoizedSize = size;
       return size;
@@ -413,6 +440,8 @@ public final class ProfileServiceOuterClass {
           .equals(other.getLocation());
       result = result && getWebsite()
           .equals(other.getWebsite());
+      result = result && getImage()
+          .equals(other.getImage());
       return result;
     }
 
@@ -437,6 +466,8 @@ public final class ProfileServiceOuterClass {
       hash = (53 * hash) + getLocation().hashCode();
       hash = (37 * hash) + WEBSITE_FIELD_NUMBER;
       hash = (53 * hash) + getWebsite().hashCode();
+      hash = (37 * hash) + IMAGE_FIELD_NUMBER;
+      hash = (53 * hash) + getImage().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -571,6 +602,8 @@ public final class ProfileServiceOuterClass {
 
         website_ = "";
 
+        image_ = com.google.protobuf.ByteString.EMPTY;
+
         return this;
       }
 
@@ -599,6 +632,7 @@ public final class ProfileServiceOuterClass {
         result.bio_ = bio_;
         result.location_ = location_;
         result.website_ = website_;
+        result.image_ = image_;
         onBuilt();
         return result;
       }
@@ -661,6 +695,9 @@ public final class ProfileServiceOuterClass {
         if (!other.getWebsite().isEmpty()) {
           website_ = other.website_;
           onChanged();
+        }
+        if (other.getImage() != com.google.protobuf.ByteString.EMPTY) {
+          setImage(other.getImage());
         }
         onChanged();
         return this;
@@ -1012,6 +1049,35 @@ public final class ProfileServiceOuterClass {
   checkByteStringIsUtf8(value);
         
         website_ = value;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString image_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>optional bytes image = 7;</code>
+       */
+      public com.google.protobuf.ByteString getImage() {
+        return image_;
+      }
+      /**
+       * <code>optional bytes image = 7;</code>
+       */
+      public Builder setImage(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        image_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bytes image = 7;</code>
+       */
+      public Builder clearImage() {
+        
+        image_ = getDefaultInstance().getImage();
         onChanged();
         return this;
       }
@@ -5703,49 +5769,49 @@ public final class ProfileServiceOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\024ProfileService.proto\022 com.kwetter.prof" +
-      "ileService.proto\"g\n\007Profile\022\n\n\002id\030\001 \001(\003\022" +
+      "ileService.proto\"v\n\007Profile\022\n\n\002id\030\001 \001(\003\022" +
       "\022\n\naccount_id\030\002 \001(\003\022\014\n\004name\030\003 \001(\t\022\013\n\003bio" +
       "\030\004 \001(\t\022\020\n\010location\030\005 \001(\t\022\017\n\007website\030\006 \001(" +
-      "\t\"1\n\016SimpleResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007m" +
-      "essage\030\002 \001(\t\"O\n\020ProfilesResponse\022;\n\010prof" +
-      "iles\030\001 \003(\0132).com.kwetter.profileService." +
-      "proto.Profile\"5\n\021NewProfileRequest\022\022\n\nac" +
-      "count_id\030\001 \001(\003\022\014\n\004name\030\002 \001(\t\"n\n\017ProfileR" +
-      "esponse\022\016\n\006status\030\001 \001(\010\022\017\n\007message\030\002 \001(\t",
-      "\022:\n\007profile\030\003 \001(\0132).com.kwetter.profileS" +
-      "ervice.proto.Profile\"V\n\030UpdateProfileInf" +
-      "oRequest\022:\n\007profile\030\001 \001(\0132).com.kwetter." +
-      "profileService.proto.Profile\",\n\031GetProfi" +
-      "leByUserIdRequest\022\017\n\007user_id\030\001 \001(\003\"H\n\021Fo" +
-      "llowUserRequest\022\031\n\021user_following_id\030\001 \001" +
-      "(\003\022\030\n\020user_followed_id\030\002 \001(\003\"+\n\025GetByPro" +
-      "fileIdRequest\022\022\n\nprofile_id\030\001 \001(\0032\373\007\n\016Pr" +
-      "ofileService\022z\n\020CreateNewProfile\0223.com.k" +
-      "wetter.profileService.proto.NewProfileRe",
-      "quest\0321.com.kwetter.profileService.proto" +
-      ".ProfileResponse\022\202\001\n\021UpdateProfileInfo\022:" +
-      ".com.kwetter.profileService.proto.Update" +
-      "ProfileInfoRequest\0321.com.kwetter.profile" +
-      "Service.proto.ProfileResponse\022|\n\016GetProf" +
-      "ileById\0227.com.kwetter.profileService.pro" +
-      "to.GetByProfileIdRequest\0321.com.kwetter.p" +
-      "rofileService.proto.ProfileResponse\022\204\001\n\022" +
-      "GetProfileByUserId\022;.com.kwetter.profile" +
-      "Service.proto.GetProfileByUserIdRequest\032",
+      "\t\022\r\n\005image\030\007 \001(\014\"1\n\016SimpleResponse\022\016\n\006st" +
+      "atus\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\"O\n\020ProfilesR" +
+      "esponse\022;\n\010profiles\030\001 \003(\0132).com.kwetter." +
+      "profileService.proto.Profile\"5\n\021NewProfi" +
+      "leRequest\022\022\n\naccount_id\030\001 \001(\003\022\014\n\004name\030\002 " +
+      "\001(\t\"n\n\017ProfileResponse\022\016\n\006status\030\001 \001(\010\022\017",
+      "\n\007message\030\002 \001(\t\022:\n\007profile\030\003 \001(\0132).com.k" +
+      "wetter.profileService.proto.Profile\"V\n\030U" +
+      "pdateProfileInfoRequest\022:\n\007profile\030\001 \001(\013" +
+      "2).com.kwetter.profileService.proto.Prof" +
+      "ile\",\n\031GetProfileByUserIdRequest\022\017\n\007user" +
+      "_id\030\001 \001(\003\"H\n\021FollowUserRequest\022\031\n\021user_f" +
+      "ollowing_id\030\001 \001(\003\022\030\n\020user_followed_id\030\002 " +
+      "\001(\003\"+\n\025GetByProfileIdRequest\022\022\n\nprofile_" +
+      "id\030\001 \001(\0032\373\007\n\016ProfileService\022z\n\020CreateNew" +
+      "Profile\0223.com.kwetter.profileService.pro",
+      "to.NewProfileRequest\0321.com.kwetter.profi" +
+      "leService.proto.ProfileResponse\022\202\001\n\021Upda" +
+      "teProfileInfo\022:.com.kwetter.profileServi" +
+      "ce.proto.UpdateProfileInfoRequest\0321.com." +
+      "kwetter.profileService.proto.ProfileResp" +
+      "onse\022|\n\016GetProfileById\0227.com.kwetter.pro" +
+      "fileService.proto.GetByProfileIdRequest\032" +
       "1.com.kwetter.profileService.proto.Profi" +
-      "leResponse\022s\n\nFollowUser\0223.com.kwetter.p" +
-      "rofileService.proto.FollowUserRequest\0320." +
-      "com.kwetter.profileService.proto.SimpleR" +
-      "esponse\022u\n\014UnfollowUser\0223.com.kwetter.pr" +
-      "ofileService.proto.FollowUserRequest\0320.c" +
-      "om.kwetter.profileService.proto.SimpleRe" +
-      "sponse\022z\n\013GetFollowed\0227.com.kwetter.prof" +
-      "ileService.proto.GetByProfileIdRequest\0322" +
-      ".com.kwetter.profileService.proto.Profil",
-      "esResponse\022{\n\014GetFollowers\0227.com.kwetter" +
-      ".profileService.proto.GetByProfileIdRequ" +
-      "est\0322.com.kwetter.profileService.proto.P" +
-      "rofilesResponseb\006proto3"
+      "leResponse\022\204\001\n\022GetProfileByUserId\022;.com." +
+      "kwetter.profileService.proto.GetProfileB",
+      "yUserIdRequest\0321.com.kwetter.profileServ" +
+      "ice.proto.ProfileResponse\022s\n\nFollowUser\022" +
+      "3.com.kwetter.profileService.proto.Follo" +
+      "wUserRequest\0320.com.kwetter.profileServic" +
+      "e.proto.SimpleResponse\022u\n\014UnfollowUser\0223" +
+      ".com.kwetter.profileService.proto.Follow" +
+      "UserRequest\0320.com.kwetter.profileService" +
+      ".proto.SimpleResponse\022z\n\013GetFollowed\0227.c" +
+      "om.kwetter.profileService.proto.GetByPro" +
+      "fileIdRequest\0322.com.kwetter.profileServi",
+      "ce.proto.ProfilesResponse\022{\n\014GetFollower" +
+      "s\0227.com.kwetter.profileService.proto.Get" +
+      "ByProfileIdRequest\0322.com.kwetter.profile" +
+      "Service.proto.ProfilesResponseb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -5764,7 +5830,7 @@ public final class ProfileServiceOuterClass {
     internal_static_com_kwetter_profileService_proto_Profile_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_kwetter_profileService_proto_Profile_descriptor,
-        new java.lang.String[] { "Id", "AccountId", "Name", "Bio", "Location", "Website", });
+        new java.lang.String[] { "Id", "AccountId", "Name", "Bio", "Location", "Website", "Image", });
     internal_static_com_kwetter_profileService_proto_SimpleResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_com_kwetter_profileService_proto_SimpleResponse_fieldAccessorTable = new

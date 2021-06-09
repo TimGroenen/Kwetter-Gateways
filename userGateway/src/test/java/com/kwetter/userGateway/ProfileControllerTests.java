@@ -38,7 +38,7 @@ public class ProfileControllerTests {
         controller = new ProfileController(authService, profileService);
         account = Account.newBuilder().setId(1).setEmail("test@test.nl").setPassword("123").setIsAdmin(false).build();
         profile = Profile.newBuilder().setId(1).setAccountId(1).setName("Test").setBio("").setLocation("").setWebsite("").build();
-        token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QubmwiLCJleHAiOjE2MjMyNzE2MjUsImlhdCI6MTYyMzE4NTIyNX0.1kw7LuOdBx5mL2USIhehfIdowIxNagDSogQs11S84hYwy2AC_CZyVRqFgxpDalyuAC3tFUr756Uhk_FOdLi1bQ";
+        token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QubmwiLCJleHAiOjE2MjMzNjAwNjIsImlhdCI6MTYyMzI3MzY2Mn0.81J2GIZxJUXnNoHfboo8ASGk8HjcpLvbp6MvxwNfDdbUaNcgm0WZmWyaJeNE3sRj1lsu0jQ7OdzIB72k6rxmsQ";
     }
 
     @Test

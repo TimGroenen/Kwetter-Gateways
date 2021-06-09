@@ -1,6 +1,7 @@
 package com.kwetter.userGateway.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.protobuf.ByteString;
 import com.kwetter.profileService.proto.ProfileServiceOuterClass.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,7 @@ public class ProfileDTO {
     private String bio;
     private String location;
     private String website;
+    private byte[] image;
 
     public ProfileDTO() {}
 
@@ -25,6 +27,7 @@ public class ProfileDTO {
         this.bio = profile.getBio();
         this.location = profile.getLocation();
         this.website = profile.getWebsite();
+        this.image = profile.getImage().toByteArray();
     }
 
     @JsonIgnore
@@ -36,6 +39,7 @@ public class ProfileDTO {
                 .setBio(bio)
                 .setLocation(location)
                 .setWebsite(website)
+                .setImage(ByteString.copyFrom(image))
                 .build();
     }
 }
