@@ -21,7 +21,7 @@ public class AccountDTO {
     public AccountDTO(AuthServiceOuterClass.Account account) {
         this.id = account.getId();
         this.email = account.getEmail();
-        this.password = account.getPassword();
+        this.password = "";
         this.isAdmin = account.getIsAdmin();
     }
 }

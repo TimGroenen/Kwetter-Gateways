@@ -68,4 +68,16 @@ public class AuthController {
         logger.info("Login successful");
         return ResponseEntity.ok().headers(responseHeaders).build();
     }
+
+    @PostMapping("/email")
+    public ResponseEntity<AccountDTO> getAccountByEmail(@RequestBody AuthDTO dto) {
+        RegisterResponse response = authService.getAccountByEmail(dto.getEmail());
+
+        if(!response.getStatus()) {
+            logger.info("Account with Email not found");
+            return ResponseEntity.notFound().build();
+        }
+
+        return new ResponseEntity<>(new AccountDTO(response.getAccount()), HttpStatus.OK);
+    }
 }

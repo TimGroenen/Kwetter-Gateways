@@ -87,7 +87,7 @@ public class ProfileController {
     }
 
     @PostMapping("/follow")
-    public ResponseEntity<String> followUser(@RequestBody FollowDTO dto, @RequestHeader("Authorization") String token) {
+    public ResponseEntity followUser(@RequestBody FollowDTO dto, @RequestHeader("Authorization") String token) {
         //Check if user matches id
         RegisterResponse response = authService.getAccountByEmail(JwtUtil.getEmailFromToken(token));
 
@@ -104,14 +104,14 @@ public class ProfileController {
             SimpleResponse followResponse = profileService.followUser(dto.getId(), dto.getFollowedId());
 
             if(followResponse.getStatus()) {
-                return ResponseEntity.ok("Successful follow");
+                return ResponseEntity.ok().build();
             }
         }
-        return new ResponseEntity<>("Not authorized", HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @PostMapping("/unfollow")
-    public ResponseEntity<String> unfollowUser(@RequestBody FollowDTO dto, @RequestHeader("Authorization") String token) {
+    public ResponseEntity unfollowUser(@RequestBody FollowDTO dto, @RequestHeader("Authorization") String token) {
         //Check if user matches id
         RegisterResponse response = authService.getAccountByEmail(JwtUtil.getEmailFromToken(token));
 
@@ -128,10 +128,10 @@ public class ProfileController {
             SimpleResponse followResponse = profileService.unfollowUser(dto.getId(), dto.getFollowedId());
 
             if(followResponse.getStatus()) {
-                return ResponseEntity.ok("Successful unfollow");
+                return ResponseEntity.ok().build();
             }
         }
-        return new ResponseEntity<>("Not authorized", HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @GetMapping("/followed/{id}")
