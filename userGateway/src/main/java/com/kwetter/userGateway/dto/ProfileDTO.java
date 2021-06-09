@@ -5,6 +5,11 @@ import com.google.protobuf.ByteString;
 import com.kwetter.profileService.proto.ProfileServiceOuterClass.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -15,7 +20,6 @@ public class ProfileDTO {
     private String bio;
     private String location;
     private String website;
-    private byte[] image;
 
     public ProfileDTO() {}
 
@@ -27,7 +31,6 @@ public class ProfileDTO {
         this.bio = profile.getBio();
         this.location = profile.getLocation();
         this.website = profile.getWebsite();
-        this.image = profile.getImage().toByteArray();
     }
 
     @JsonIgnore
@@ -39,7 +42,6 @@ public class ProfileDTO {
                 .setBio(bio)
                 .setLocation(location)
                 .setWebsite(website)
-                .setImage(ByteString.copyFrom(image))
                 .build();
     }
 }

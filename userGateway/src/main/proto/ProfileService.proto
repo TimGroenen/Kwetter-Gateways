@@ -29,7 +29,6 @@ message Profile {
     string bio = 4;
     string location = 5;
     string website = 6;
-    bytes image = 7;
 }
 
 message SimpleResponse {
