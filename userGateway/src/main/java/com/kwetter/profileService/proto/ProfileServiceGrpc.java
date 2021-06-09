@@ -46,6 +46,15 @@ public class ProfileServiceGrpc {
           io.grpc.protobuf.ProtoUtils.marshaller(com.kwetter.profileService.proto.ProfileServiceOuterClass.UpdateProfileInfoRequest.getDefaultInstance()),
           io.grpc.protobuf.ProtoUtils.marshaller(com.kwetter.profileService.proto.ProfileServiceOuterClass.ProfileResponse.getDefaultInstance()));
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static final io.grpc.MethodDescriptor<com.kwetter.profileService.proto.ProfileServiceOuterClass.GetByProfileIdRequest,
+      com.kwetter.profileService.proto.ProfileServiceOuterClass.ProfileResponse> METHOD_GET_PROFILE_BY_ID =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "com.kwetter.profileService.proto.ProfileService", "GetProfileById"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.kwetter.profileService.proto.ProfileServiceOuterClass.GetByProfileIdRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.kwetter.profileService.proto.ProfileServiceOuterClass.ProfileResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
   public static final io.grpc.MethodDescriptor<com.kwetter.profileService.proto.ProfileServiceOuterClass.GetProfileByUserIdRequest,
       com.kwetter.profileService.proto.ProfileServiceOuterClass.ProfileResponse> METHOD_GET_PROFILE_BY_USER_ID =
       io.grpc.MethodDescriptor.create(
@@ -140,6 +149,16 @@ public class ProfileServiceGrpc {
 
     /**
      * <pre>
+     *Get profile by Id
+     * </pre>
+     */
+    public void getProfileById(com.kwetter.profileService.proto.ProfileServiceOuterClass.GetByProfileIdRequest request,
+        io.grpc.stub.StreamObserver<com.kwetter.profileService.proto.ProfileServiceOuterClass.ProfileResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(METHOD_GET_PROFILE_BY_ID, responseObserver);
+    }
+
+    /**
+     * <pre>
      *Get profile by userId
      * </pre>
      */
@@ -204,6 +223,13 @@ public class ProfileServiceGrpc {
                 com.kwetter.profileService.proto.ProfileServiceOuterClass.UpdateProfileInfoRequest,
                 com.kwetter.profileService.proto.ProfileServiceOuterClass.ProfileResponse>(
                   this, METHODID_UPDATE_PROFILE_INFO)))
+          .addMethod(
+            METHOD_GET_PROFILE_BY_ID,
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.kwetter.profileService.proto.ProfileServiceOuterClass.GetByProfileIdRequest,
+                com.kwetter.profileService.proto.ProfileServiceOuterClass.ProfileResponse>(
+                  this, METHODID_GET_PROFILE_BY_ID)))
           .addMethod(
             METHOD_GET_PROFILE_BY_USER_ID,
             asyncUnaryCall(
@@ -281,6 +307,17 @@ public class ProfileServiceGrpc {
         io.grpc.stub.StreamObserver<com.kwetter.profileService.proto.ProfileServiceOuterClass.ProfileResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(METHOD_UPDATE_PROFILE_INFO, getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     *Get profile by Id
+     * </pre>
+     */
+    public void getProfileById(com.kwetter.profileService.proto.ProfileServiceOuterClass.GetByProfileIdRequest request,
+        io.grpc.stub.StreamObserver<com.kwetter.profileService.proto.ProfileServiceOuterClass.ProfileResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_GET_PROFILE_BY_ID, getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -379,6 +416,16 @@ public class ProfileServiceGrpc {
 
     /**
      * <pre>
+     *Get profile by Id
+     * </pre>
+     */
+    public com.kwetter.profileService.proto.ProfileServiceOuterClass.ProfileResponse getProfileById(com.kwetter.profileService.proto.ProfileServiceOuterClass.GetByProfileIdRequest request) {
+      return blockingUnaryCall(
+          getChannel(), METHOD_GET_PROFILE_BY_ID, getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
      *Get profile by userId
      * </pre>
      */
@@ -470,6 +517,17 @@ public class ProfileServiceGrpc {
 
     /**
      * <pre>
+     *Get profile by Id
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.kwetter.profileService.proto.ProfileServiceOuterClass.ProfileResponse> getProfileById(
+        com.kwetter.profileService.proto.ProfileServiceOuterClass.GetByProfileIdRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_GET_PROFILE_BY_ID, getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      *Get profile by userId
      * </pre>
      */
@@ -526,11 +584,12 @@ public class ProfileServiceGrpc {
 
   private static final int METHODID_CREATE_NEW_PROFILE = 0;
   private static final int METHODID_UPDATE_PROFILE_INFO = 1;
-  private static final int METHODID_GET_PROFILE_BY_USER_ID = 2;
-  private static final int METHODID_FOLLOW_USER = 3;
-  private static final int METHODID_UNFOLLOW_USER = 4;
-  private static final int METHODID_GET_FOLLOWED = 5;
-  private static final int METHODID_GET_FOLLOWERS = 6;
+  private static final int METHODID_GET_PROFILE_BY_ID = 2;
+  private static final int METHODID_GET_PROFILE_BY_USER_ID = 3;
+  private static final int METHODID_FOLLOW_USER = 4;
+  private static final int METHODID_UNFOLLOW_USER = 5;
+  private static final int METHODID_GET_FOLLOWED = 6;
+  private static final int METHODID_GET_FOLLOWERS = 7;
 
   private static class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -555,6 +614,10 @@ public class ProfileServiceGrpc {
           break;
         case METHODID_UPDATE_PROFILE_INFO:
           serviceImpl.updateProfileInfo((com.kwetter.profileService.proto.ProfileServiceOuterClass.UpdateProfileInfoRequest) request,
+              (io.grpc.stub.StreamObserver<com.kwetter.profileService.proto.ProfileServiceOuterClass.ProfileResponse>) responseObserver);
+          break;
+        case METHODID_GET_PROFILE_BY_ID:
+          serviceImpl.getProfileById((com.kwetter.profileService.proto.ProfileServiceOuterClass.GetByProfileIdRequest) request,
               (io.grpc.stub.StreamObserver<com.kwetter.profileService.proto.ProfileServiceOuterClass.ProfileResponse>) responseObserver);
           break;
         case METHODID_GET_PROFILE_BY_USER_ID:
@@ -597,6 +660,7 @@ public class ProfileServiceGrpc {
     return new io.grpc.ServiceDescriptor(SERVICE_NAME,
         METHOD_CREATE_NEW_PROFILE,
         METHOD_UPDATE_PROFILE_INFO,
+        METHOD_GET_PROFILE_BY_ID,
         METHOD_GET_PROFILE_BY_USER_ID,
         METHOD_FOLLOW_USER,
         METHOD_UNFOLLOW_USER,

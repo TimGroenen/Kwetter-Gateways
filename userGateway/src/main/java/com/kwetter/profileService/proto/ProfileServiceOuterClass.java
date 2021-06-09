@@ -5719,30 +5719,33 @@ public final class ProfileServiceOuterClass {
       "leByUserIdRequest\022\017\n\007user_id\030\001 \001(\003\"H\n\021Fo" +
       "llowUserRequest\022\031\n\021user_following_id\030\001 \001" +
       "(\003\022\030\n\020user_followed_id\030\002 \001(\003\"+\n\025GetByPro" +
-      "fileIdRequest\022\022\n\nprofile_id\030\001 \001(\0032\375\006\n\016Pr" +
+      "fileIdRequest\022\022\n\nprofile_id\030\001 \001(\0032\373\007\n\016Pr" +
       "ofileService\022z\n\020CreateNewProfile\0223.com.k" +
       "wetter.profileService.proto.NewProfileRe",
       "quest\0321.com.kwetter.profileService.proto" +
       ".ProfileResponse\022\202\001\n\021UpdateProfileInfo\022:" +
       ".com.kwetter.profileService.proto.Update" +
       "ProfileInfoRequest\0321.com.kwetter.profile" +
-      "Service.proto.ProfileResponse\022\204\001\n\022GetPro" +
-      "fileByUserId\022;.com.kwetter.profileServic" +
-      "e.proto.GetProfileByUserIdRequest\0321.com." +
-      "kwetter.profileService.proto.ProfileResp" +
-      "onse\022s\n\nFollowUser\0223.com.kwetter.profile" +
-      "Service.proto.FollowUserRequest\0320.com.kw",
-      "etter.profileService.proto.SimpleRespons" +
-      "e\022u\n\014UnfollowUser\0223.com.kwetter.profileS" +
-      "ervice.proto.FollowUserRequest\0320.com.kwe" +
-      "tter.profileService.proto.SimpleResponse" +
-      "\022z\n\013GetFollowed\0227.com.kwetter.profileSer" +
-      "vice.proto.GetByProfileIdRequest\0322.com.k" +
-      "wetter.profileService.proto.ProfilesResp" +
-      "onse\022{\n\014GetFollowers\0227.com.kwetter.profi" +
-      "leService.proto.GetByProfileIdRequest\0322." +
-      "com.kwetter.profileService.proto.Profile",
-      "sResponseb\006proto3"
+      "Service.proto.ProfileResponse\022|\n\016GetProf" +
+      "ileById\0227.com.kwetter.profileService.pro" +
+      "to.GetByProfileIdRequest\0321.com.kwetter.p" +
+      "rofileService.proto.ProfileResponse\022\204\001\n\022" +
+      "GetProfileByUserId\022;.com.kwetter.profile" +
+      "Service.proto.GetProfileByUserIdRequest\032",
+      "1.com.kwetter.profileService.proto.Profi" +
+      "leResponse\022s\n\nFollowUser\0223.com.kwetter.p" +
+      "rofileService.proto.FollowUserRequest\0320." +
+      "com.kwetter.profileService.proto.SimpleR" +
+      "esponse\022u\n\014UnfollowUser\0223.com.kwetter.pr" +
+      "ofileService.proto.FollowUserRequest\0320.c" +
+      "om.kwetter.profileService.proto.SimpleRe" +
+      "sponse\022z\n\013GetFollowed\0227.com.kwetter.prof" +
+      "ileService.proto.GetByProfileIdRequest\0322" +
+      ".com.kwetter.profileService.proto.Profil",
+      "esResponse\022{\n\014GetFollowers\0227.com.kwetter" +
+      ".profileService.proto.GetByProfileIdRequ" +
+      "est\0322.com.kwetter.profileService.proto.P" +
+      "rofilesResponseb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

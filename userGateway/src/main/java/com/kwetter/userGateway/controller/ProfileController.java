@@ -56,6 +56,21 @@ public class ProfileController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ProfileDTO> getProfileById(@PathVariable Long id) {
+        ProfileResponse response = profileService.getProfileById(id);
+
+        if(!response.getStatus()) {
+            logger.info("Profile with id: " + id + ", not found");
+            return ResponseEntity.notFound().build();
+        }
+
+        //Profile is found
+        ProfileDTO dto = new ProfileDTO(response.getProfile());
+
+        return ResponseEntity.ok(dto);
+    }
+
     @GetMapping("/account/{id}")
     public ResponseEntity<ProfileDTO> getProfileByAccountId(@PathVariable Long id) {
         ProfileResponse response = profileService.getProfileByAccountId(id);

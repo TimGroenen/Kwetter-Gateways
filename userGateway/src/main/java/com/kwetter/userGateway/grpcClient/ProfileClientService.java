@@ -33,6 +33,18 @@ public class ProfileClientService {
         return response;
     }
 
+    public ProfileResponse getProfileById(Long profileId) {
+        GetByProfileIdRequest request = GetByProfileIdRequest.newBuilder().setProfileId(profileId).build();
+
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 5001).usePlaintext().build();
+        ProfileServiceGrpc.ProfileServiceBlockingStub stub = ProfileServiceGrpc.newBlockingStub(channel);
+
+        ProfileResponse response = stub.getProfileById(request);
+
+        channel.shutdown();
+        return response;
+    }
+
     public ProfileResponse getProfileByAccountId(Long accountId) {
         GetProfileByUserIdRequest request = GetProfileByUserIdRequest.newBuilder().setUserId(accountId).build();
 

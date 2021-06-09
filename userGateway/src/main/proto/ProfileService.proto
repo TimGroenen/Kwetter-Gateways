@@ -7,6 +7,8 @@ service ProfileService {
     rpc CreateNewProfile(NewProfileRequest) returns (ProfileResponse);
     //Update profile information
     rpc UpdateProfileInfo(UpdateProfileInfoRequest) returns (ProfileResponse);
+    //Get profile by Id
+    rpc GetProfileById(GetByProfileIdRequest) returns (ProfileResponse);
     //Get profile by userId
     rpc GetProfileByUserId(GetProfileByUserIdRequest) returns (ProfileResponse);
     //Follow user
