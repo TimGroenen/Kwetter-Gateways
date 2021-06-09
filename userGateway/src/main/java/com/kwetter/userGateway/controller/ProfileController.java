@@ -68,7 +68,7 @@ public class ProfileController {
         //Profile is found
         ProfileDTO dto = new ProfileDTO(response.getProfile());
 
-        return ResponseEntity.ok(dto);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @GetMapping("/account/{id}")

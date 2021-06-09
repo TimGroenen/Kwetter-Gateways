@@ -1,6 +1,7 @@
 package com.kwetter.userGateway.dto;
 
-import com.kwetter.profileService.proto.ProfileServiceOuterClass;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kwetter.profileService.proto.ProfileServiceOuterClass.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +17,8 @@ public class ProfileDTO {
 
     public ProfileDTO() {}
 
-    public ProfileDTO(ProfileServiceOuterClass.Profile profile) {
+    @JsonIgnore
+    public ProfileDTO(Profile profile) {
         this.id = profile.getId();
         this.accountId = profile.getAccountId();
         this.name = profile.getName();
@@ -25,8 +27,9 @@ public class ProfileDTO {
         this.website = profile.getWebsite();
     }
 
-    public ProfileServiceOuterClass.Profile getProfileClass() {
-        return ProfileServiceOuterClass.Profile.newBuilder()
+    @JsonIgnore
+    public Profile getProfileClass() {
+        return Profile.newBuilder()
                 .setId(id)
                 .setAccountId(accountId)
                 .setName(name)
