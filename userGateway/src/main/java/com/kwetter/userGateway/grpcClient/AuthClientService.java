@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthClientService {
+    private final String ip = "10.244.0.10";
+
     public RegisterResponse register(String email, String password) {
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 5000).usePlaintext().build();
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(ip, 5000).usePlaintext().build();
 
         AuthServiceGrpc.AuthServiceBlockingStub stub = AuthServiceGrpc.newBlockingStub(channel);
 
@@ -20,7 +22,7 @@ public class AuthClientService {
     }
 
     public LoginResponse login(String email, String password) {
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 5000).usePlaintext().build();
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(ip, 5000).usePlaintext().build();
 
         AuthServiceGrpc.AuthServiceBlockingStub stub = AuthServiceGrpc.newBlockingStub(channel);
 
@@ -31,7 +33,7 @@ public class AuthClientService {
     }
 
     public ValidationResponse validateToken(String token) {
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 5000).usePlaintext().build();
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(ip, 5000).usePlaintext().build();
 
         AuthServiceGrpc.AuthServiceBlockingStub stub = AuthServiceGrpc.newBlockingStub(channel);
 
@@ -42,7 +44,7 @@ public class AuthClientService {
     }
 
     public RegisterResponse getAccountByEmail(String email) {
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 5000).usePlaintext().build();
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(ip, 5000).usePlaintext().build();
         AuthServiceGrpc.AuthServiceBlockingStub stub = AuthServiceGrpc.newBlockingStub(channel);
 
         RegisterResponse response = stub.getAccountByEmail(EmailRequest.newBuilder().setEmail(email).build());

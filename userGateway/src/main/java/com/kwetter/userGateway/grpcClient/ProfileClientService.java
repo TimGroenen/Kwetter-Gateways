@@ -8,11 +8,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProfileClientService {
+    private final String ip = "10.244.1.15";
 
     public ProfileResponse createProfile(Long accountId, String name) {
         NewProfileRequest request = NewProfileRequest.newBuilder().setAccountId(accountId).setName(name).build();
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 5001).usePlaintext().build();
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(ip, 5001).usePlaintext().build();
         ProfileServiceGrpc.ProfileServiceBlockingStub stub = ProfileServiceGrpc.newBlockingStub(channel);
 
         ProfileResponse response = stub.createNewProfile(request);
@@ -24,7 +25,7 @@ public class ProfileClientService {
     public ProfileResponse updateProfile(Profile profile) {
         UpdateProfileInfoRequest request = UpdateProfileInfoRequest.newBuilder().setProfile(profile).build();
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 5001).usePlaintext().build();
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(ip, 5001).usePlaintext().build();
         ProfileServiceGrpc.ProfileServiceBlockingStub stub = ProfileServiceGrpc.newBlockingStub(channel);
 
         ProfileResponse response = stub.updateProfileInfo(request);
@@ -36,7 +37,7 @@ public class ProfileClientService {
     public ProfileResponse getProfileById(Long profileId) {
         GetByProfileIdRequest request = GetByProfileIdRequest.newBuilder().setProfileId(profileId).build();
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 5001).usePlaintext().build();
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(ip, 5001).usePlaintext().build();
         ProfileServiceGrpc.ProfileServiceBlockingStub stub = ProfileServiceGrpc.newBlockingStub(channel);
 
         ProfileResponse response = stub.getProfileById(request);
@@ -48,7 +49,7 @@ public class ProfileClientService {
     public ProfileResponse getProfileByAccountId(Long accountId) {
         GetProfileByUserIdRequest request = GetProfileByUserIdRequest.newBuilder().setUserId(accountId).build();
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 5001).usePlaintext().build();
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(ip, 5001).usePlaintext().build();
         ProfileServiceGrpc.ProfileServiceBlockingStub stub = ProfileServiceGrpc.newBlockingStub(channel);
 
         ProfileResponse response = stub.getProfileByUserId(request);
@@ -60,7 +61,7 @@ public class ProfileClientService {
     public SimpleResponse followUser(Long userId, Long userFollowedId) {
         FollowUserRequest request = FollowUserRequest.newBuilder().setUserFollowingId(userId).setUserFollowedId(userFollowedId).build();
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 5001).usePlaintext().build();
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(ip, 5001).usePlaintext().build();
         ProfileServiceGrpc.ProfileServiceBlockingStub stub = ProfileServiceGrpc.newBlockingStub(channel);
 
         SimpleResponse response = stub.followUser(request);
@@ -72,7 +73,7 @@ public class ProfileClientService {
     public SimpleResponse unfollowUser(Long userId, Long userFollowedId) {
         FollowUserRequest request = FollowUserRequest.newBuilder().setUserFollowingId(userId).setUserFollowedId(userFollowedId).build();
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 5001).usePlaintext().build();
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(ip, 5001).usePlaintext().build();
         ProfileServiceGrpc.ProfileServiceBlockingStub stub = ProfileServiceGrpc.newBlockingStub(channel);
 
         SimpleResponse response = stub.unfollowUser(request);
@@ -84,7 +85,7 @@ public class ProfileClientService {
     public ProfilesResponse getFollowed(Long profileId) {
         GetByProfileIdRequest request = GetByProfileIdRequest.newBuilder().setProfileId(profileId).build();
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 5001).usePlaintext().build();
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(ip, 5001).usePlaintext().build();
         ProfileServiceGrpc.ProfileServiceBlockingStub stub = ProfileServiceGrpc.newBlockingStub(channel);
 
         ProfilesResponse response = stub.getFollowed(request);
@@ -96,7 +97,7 @@ public class ProfileClientService {
     public ProfilesResponse getFollowers(Long profileId) {
         GetByProfileIdRequest request = GetByProfileIdRequest.newBuilder().setProfileId(profileId).build();
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 5001).usePlaintext().build();
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(ip, 5001).usePlaintext().build();
         ProfileServiceGrpc.ProfileServiceBlockingStub stub = ProfileServiceGrpc.newBlockingStub(channel);
 
         ProfilesResponse response = stub.getFollowers(request);

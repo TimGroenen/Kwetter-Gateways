@@ -10,10 +10,12 @@ import java.util.List;
 
 @Service
 public class MessageClientService {
+    private final String ip = "10.244.0.11";
+
     public SimpleResponse createNewTweet(Long profileId, String content) {
         NewTweetRequest request = NewTweetRequest.newBuilder().setProfileId(profileId).setContent(content).build();
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 5002).usePlaintext().build();
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(ip, 5002).usePlaintext().build();
         MessageServiceGrpc.MessageServiceBlockingStub stub = MessageServiceGrpc.newBlockingStub(channel);
 
         SimpleResponse response = stub.createNewTweet(request);
@@ -25,7 +27,7 @@ public class MessageClientService {
     public TweetsResponse getTweetsByProfileIds(List<Long> profileIds, Long profileId) {
         TweetsByProfileRequest request = TweetsByProfileRequest.newBuilder().addAllProfileIds(profileIds).setProfileId(profileId).build();
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 5002).usePlaintext().build();
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(ip, 5002).usePlaintext().build();
         MessageServiceGrpc.MessageServiceBlockingStub stub = MessageServiceGrpc.newBlockingStub(channel);
 
         TweetsResponse response = stub.getTweetsByProfileIds(request);
@@ -37,7 +39,7 @@ public class MessageClientService {
     public SimpleResponse likeTweet(Long profileId, Long tweetId) {
         LikeTweetRequest request = LikeTweetRequest.newBuilder().setTweetId(tweetId).setProfileId(profileId).build();
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 5002).usePlaintext().build();
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(ip, 5002).usePlaintext().build();
         MessageServiceGrpc.MessageServiceBlockingStub stub = MessageServiceGrpc.newBlockingStub(channel);
 
         SimpleResponse response = stub.like(request);
@@ -49,7 +51,7 @@ public class MessageClientService {
     public SimpleResponse unlikeTweet(Long profileId, Long tweetId) {
         LikeTweetRequest request = LikeTweetRequest.newBuilder().setTweetId(tweetId).setProfileId(profileId).build();
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 5002).usePlaintext().build();
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(ip, 5002).usePlaintext().build();
         MessageServiceGrpc.MessageServiceBlockingStub stub = MessageServiceGrpc.newBlockingStub(channel);
 
         SimpleResponse response = stub.unlike(request);
