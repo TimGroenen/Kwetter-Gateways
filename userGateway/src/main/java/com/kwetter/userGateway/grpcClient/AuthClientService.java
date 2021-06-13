@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthClientService {
-    private final String ip = "10.244.0.10";
+    private final String ip = "10.0.132.212";
 
     public RegisterResponse register(String email, String password) {
         ManagedChannel channel = ManagedChannelBuilder.forAddress(ip, 5000).usePlaintext().build();
