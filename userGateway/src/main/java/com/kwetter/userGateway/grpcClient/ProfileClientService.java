@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProfileClientService {
-    private final String ip = "10.0.193.214";
+    private final String ip = "microservice-profile-service";
 
     public ProfileResponse createProfile(Long accountId, String name) {
         NewProfileRequest request = NewProfileRequest.newBuilder().setAccountId(accountId).setName(name).build();

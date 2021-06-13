@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 public class MessageClientService {
-    private final String ip = "10.0.216.204";
+    private final String ip = "microservice-message-service";
 
     public SimpleResponse createNewTweet(Long profileId, String content) {
         NewTweetRequest request = NewTweetRequest.newBuilder().setProfileId(profileId).setContent(content).build();
