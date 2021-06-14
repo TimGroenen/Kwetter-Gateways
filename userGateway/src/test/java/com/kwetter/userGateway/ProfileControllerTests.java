@@ -7,6 +7,7 @@ import com.kwetter.userGateway.dto.AccountDTO;
 import com.kwetter.userGateway.dto.ProfileDTO;
 import com.kwetter.userGateway.grpcClient.AuthClientService;
 import com.kwetter.userGateway.grpcClient.ProfileClientService;
+import com.kwetter.userGateway.kafka.KafkaSender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -29,13 +30,16 @@ public class ProfileControllerTests {
     @Mock
     private ProfileClientService profileService;
 
+    @Mock
+    private KafkaSender kafkaSender;
+
     private Account account;
     private Profile profile;
     private String token;
 
     @BeforeEach
     void setUp() {
-        controller = new ProfileController(authService, profileService);
+        controller = new ProfileController(authService, profileService, kafkaSender);
         account = Account.newBuilder().setId(1).setEmail("test@test.nl").setPassword("123").setIsAdmin(false).build();
         profile = Profile.newBuilder().setId(1).setAccountId(1).setName("Test").setBio("").setLocation("").setWebsite("").build();
         token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QubmwiLCJleHAiOjE3MjMzNjAwNjIsImlhdCI6MTYyMzI3MzY2Mn0.0QXSp1aJpV4iz4PA_mWnIDRG6uDzO3080JZrg3BDX7ij7JXkdIeCTmGE2-s-LxCzJP7iEGfeuS-xnzz7x_DQjA";

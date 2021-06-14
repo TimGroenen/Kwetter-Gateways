@@ -6,6 +6,7 @@ import com.kwetter.userGateway.dto.AccountDTO;
 import com.kwetter.userGateway.dto.AuthDTO;
 import com.kwetter.userGateway.grpcClient.AuthClientService;
 import com.kwetter.userGateway.grpcClient.ProfileClientService;
+import com.kwetter.userGateway.kafka.KafkaSender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
@@ -26,10 +27,12 @@ public class AuthControllerTests {
     private AuthClientService authService;
     @Mock
     private ProfileClientService profileService;
+    @Mock
+    private KafkaSender kafkaSender;
 
     @BeforeEach
     public void setup() {
-        authController = new AuthController(authService, profileService);
+        authController = new AuthController(authService, profileService, kafkaSender);
     }
 
     ///Register tests

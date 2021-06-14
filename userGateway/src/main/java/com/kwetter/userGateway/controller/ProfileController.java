@@ -7,6 +7,8 @@ import com.kwetter.userGateway.dto.FollowDTO;
 import com.kwetter.userGateway.dto.ProfileDTO;
 import com.kwetter.userGateway.grpcClient.AuthClientService;
 import com.kwetter.userGateway.grpcClient.ProfileClientService;
+import com.kwetter.userGateway.kafka.KafkaSender;
+import com.kwetter.userGateway.kafka.message.KafkaLoggingType;
 import com.kwetter.userGateway.security.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,12 +23,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/profile")
 public class ProfileController {
-    private final Logger logger = LoggerFactory.getLogger(ProfileController.class);
-
+    private final KafkaSender kafkaSender;
     private final AuthClientService authService;
     private final ProfileClientService profileService;
 
-    public ProfileController(@Autowired AuthClientService authService, @Autowired ProfileClientService profileService) {
+    public ProfileController(@Autowired AuthClientService authService, @Autowired ProfileClientService profileService, @Autowired KafkaSender kafkaSender) {
+        this.kafkaSender = kafkaSender;
         this.authService = authService;
         this.profileService = profileService;
     }
@@ -61,7 +63,7 @@ public class ProfileController {
         ProfileResponse response = profileService.getProfileById(id);
 
         if(!response.getStatus()) {
-            logger.info("Profile with id: " + id + ", not found");
+            kafkaSender.sendKafkaLogging("Profile with id: " + id + ", not found", KafkaLoggingType.WARN);
             return ResponseEntity.notFound().build();
         }
 
@@ -76,7 +78,7 @@ public class ProfileController {
         ProfileResponse response = profileService.getProfileByAccountId(id);
 
         if(!response.getStatus()) {
-            logger.info("Profile with AccountId: " + id + ", not found");
+            kafkaSender.sendKafkaLogging("Profile with AccountId: " + id + ", not found", KafkaLoggingType.WARN);
             return ResponseEntity.notFound().build();
         }
 
@@ -92,6 +94,7 @@ public class ProfileController {
         RegisterResponse response = authService.getAccountByEmail(JwtUtil.getEmailFromToken(token));
 
         if(!response.getStatus()) {
+            kafkaSender.sendKafkaLogging("User to follow not found", KafkaLoggingType.WARN);
             return ResponseEntity.notFound().build();
         }
 
@@ -116,6 +119,7 @@ public class ProfileController {
         RegisterResponse response = authService.getAccountByEmail(JwtUtil.getEmailFromToken(token));
 
         if(!response.getStatus()) {
+            kafkaSender.sendKafkaLogging("User to unfollow not found", KafkaLoggingType.WARN);
             return ResponseEntity.notFound().build();
         }
 
@@ -143,6 +147,7 @@ public class ProfileController {
             response.add(new ProfileDTO(p));
         }
 
+        kafkaSender.sendKafkaLogging("Returning followed for id: " + id, KafkaLoggingType.INFO);
         return ResponseEntity.ok(response);
     }
 
@@ -155,6 +160,7 @@ public class ProfileController {
             response.add(new ProfileDTO(p));
         }
 
+        kafkaSender.sendKafkaLogging("Returning followers for id: " + id, KafkaLoggingType.INFO);
         return ResponseEntity.ok(response);
     }
 }

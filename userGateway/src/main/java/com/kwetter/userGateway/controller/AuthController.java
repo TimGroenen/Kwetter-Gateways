@@ -6,6 +6,8 @@ import com.kwetter.userGateway.dto.AccountDTO;
 import com.kwetter.userGateway.dto.AuthDTO;
 import com.kwetter.userGateway.grpcClient.AuthClientService;
 import com.kwetter.userGateway.grpcClient.ProfileClientService;
+import com.kwetter.userGateway.kafka.KafkaSender;
+import com.kwetter.userGateway.kafka.message.KafkaLoggingType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,54 +20,61 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/user")
 public class AuthController {
-    Logger logger = LoggerFactory.getLogger(AuthController.class);
+    private KafkaSender kafkaSender;
     private AuthClientService authService;
     private ProfileClientService profileService;
 
-    public AuthController(@Autowired AuthClientService authService, @Autowired ProfileClientService profileService) {
+    public AuthController(@Autowired AuthClientService authService, @Autowired ProfileClientService profileService, @Autowired KafkaSender kafkaSender) {
         this.authService = authService;
         this.profileService = profileService;
+        this.kafkaSender = kafkaSender;
     }
 
     @PostMapping("/register")
     public ResponseEntity<AccountDTO> registerAccount(@RequestBody AuthDTO authDTO) {
         if(authDTO.getEmail().equals("") || authDTO.getPassword().equals("")) {
-            logger.info("Empty register request");
+            kafkaSender.sendKafkaLogging("Empty register request", KafkaLoggingType.WARN);
             return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
         }
 
         RegisterResponse response = authService.register(authDTO.getEmail(), authDTO.getPassword());
 
         if(!response.getStatus()) {
-            logger.info("User is not registered");
+            kafkaSender.sendKafkaLogging("User is not registered", KafkaLoggingType.WARN);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         //User is registered -> create profile in profileService
         ProfileResponse profileResponse = profileService.createProfile(response.getAccount().getId(), authDTO.getName());
 
-        logger.info("New account registered, email: " + response.getAccount().getEmail());
+        kafkaSender.sendKafkaLogging("New account registered, email: " + response.getAccount().getEmail(), KafkaLoggingType.INFO);
         return new ResponseEntity<>(new AccountDTO(response.getAccount()), HttpStatus.OK);
     }
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthDTO authDTO) {
         if(authDTO.getEmail().equals("") || authDTO.getPassword().equals("")) {
-            logger.info("Empty login request");
+            kafkaSender.sendKafkaLogging("Empty login request", KafkaLoggingType.WARN);
             return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
         }
 
-        LoginResponse response = authService.login(authDTO.getEmail(), authDTO.getPassword());
+        LoginResponse response;
+        try {
+            response = authService.login(authDTO.getEmail(), authDTO.getPassword());
+        } catch (Exception e) {
+            kafkaSender.sendKafkaLogging("Login: " + e.getMessage(), KafkaLoggingType.ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
         if(!response.getStatus()) {
-            logger.info("User is not logged in");
+            kafkaSender.sendKafkaLogging("User is not logged in", KafkaLoggingType.WARN);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Authorization", "Bearer " + response.getMessage());
 
-        logger.info("Login successful");
+        kafkaSender.sendKafkaLogging("Login successful", KafkaLoggingType.INFO);
         return ResponseEntity.ok().headers(responseHeaders).build();
     }
 
@@ -74,7 +83,7 @@ public class AuthController {
         RegisterResponse response = authService.getAccountByEmail(dto.getEmail());
 
         if(!response.getStatus()) {
-            logger.info("Account with Email not found");
+            kafkaSender.sendKafkaLogging("Account with email not found: " + dto.getEmail(), KafkaLoggingType.WARN);
             return ResponseEntity.notFound().build();
         }
 
